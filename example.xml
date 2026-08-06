@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Die Hoelle ist zugefroren (T < 115.21 °C), wir installieren Windows Server 2025 -->
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+    <settings pass="windowsPE">
+        <!-- Konfiguration fuer das Setup-Environment (WinPE) -->
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+            
+            <RunSynchronous>
+                <!-- Lade den Storage-Treiber, damit der Installer die QCOW2-Disk sieht -->
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Path>drvload.exe e:\viostor\2k22\amd64\viostor.inf</Path>
+                    <Description>VirtIO Storage Treiber laden</Description>
+                </RunSynchronousCommand>
+                
+                <!-- Lade den Netzwerk-Treiber fuer das SSH Port-Forwarding -->
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Path>drvload.exe e:\NetKVM\2k22\amd64\netkvm.inf</Path>
+                    <Description>VirtIO Network Treiber laden</Description>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+
+            <DiskConfiguration>
+                <!-- Automatisiertes Loeschen der Disk ID 0 -->
+                <Disk wcm:action="add">
+                    <DiskID>0</DiskID>
+                    <WillWipeDisk>true</WillWipeDisk>
+                </Disk>
+            </DiskConfiguration>
+            
+        </component>
+    </settings>
+</unattend>
