@@ -66,7 +66,7 @@ fn print_tree(node: Node, prefix: &str, is_last: bool) {
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        eprintln!("Usage: xml-tree <datei.xml>");
+        eprintln!("Usage: xmlv <datei.xml>");
         std::process::exit(1);
     }
 
