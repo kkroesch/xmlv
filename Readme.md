@@ -17,3 +17,51 @@ Perfect for immutable environments (like Fedora Silverblue/Sway Atomic) where yo
 
 * [Rust toolchain](https://rustup.rs/)
 
+## Usage
+
+Pass any XML file as the first argument:
+
+```
+xmlv path/to/file.xml
+```
+
+### Example
+
+Input (test.xml):
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The hell has frozen over (T < 115.21 °C), installing Windows Server -->
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64">
+            <RunSynchronous>
+                <!-- Load storage driver -->
+                <RunSynchronousCommand action="add">
+                    <Path>drvload.exe viostor.inf</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
+</unattend>
+```
+
+Output:
+The terminal will output a colored tree structure, with the thermodynamic state securely logged as a dimmed comment.
+Plaintext
+
+```
+test.xml
+├── # The hell has frozen over (T < 115.21 °C), installing Windows Server
+└── unattend (xmlns='urn:schemas-microsoft-com:unattend')
+    └── settings (pass='windowsPE')
+        └── component (name='Microsoft-Windows-Setup' processorArchitecture='amd64')
+            └── RunSynchronous
+                ├── # Load storage driver
+                └── RunSynchronousCommand (action='add')
+                    └── Path: drvload.exe viostor.inf
+```
+
+## License
+
+MIT
