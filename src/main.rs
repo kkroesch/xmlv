@@ -16,7 +16,7 @@ fn print_tree(node: Node, prefix: &str, is_last: bool) {
 
     if node.is_element() {
         let mut s = format!("{}", node.tag_name().name().bold().blue());
-        
+
         // Attribute anhängen
         let attrs: Vec<String> = node
             .attributes()
@@ -25,7 +25,7 @@ fn print_tree(node: Node, prefix: &str, is_last: bool) {
         if !attrs.is_empty() {
             s.push_str(&format!(" ({})", attrs.join(" ")));
         }
-        
+
         // Textinhalt (direkte Text-Kindknoten sammeln)
         let text_content: String = node
             .children()
@@ -33,7 +33,7 @@ fn print_tree(node: Node, prefix: &str, is_last: bool) {
             .filter_map(|c| c.text())
             .map(|t| t.trim())
             .collect();
-            
+
         if !text_content.is_empty() {
             s.push_str(&format!(": {}", text_content.yellow()));
         }
